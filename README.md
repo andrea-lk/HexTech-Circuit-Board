@@ -1,6 +1,4 @@
-```{python}
-print("Hello Python!")
-```
+
 
 # HexTech Circuit Board User Manual
 
@@ -44,14 +42,14 @@ To use the HexTech board with Python, you need to set up the HexTech library. Fo
 
 To get started with programming the HexTech board, import the `HexTechMusclev1` class from the library:
 
-    ```{python}
-    
-    from hextech import HexTechMusclev1
+```{python}
+from hextech import HexTechMusclev1
 
     hex = HexTechMusclev1("COM10")
     hex.blue_led.turn_on()
-    
-    ```
+```
+
+ 
 
 ## Connecting to MQTT
 
