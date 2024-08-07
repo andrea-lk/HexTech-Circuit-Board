@@ -40,7 +40,6 @@ To use the HexTech board with Python, you need to set up the HexTech library. Fo
 
 To get started with programming the HexTech board, import the `HexTechMusclev1` class from the library:
 
-   
     from hextech import HexTechMusclev1
 
     hex = HexTechMusclev1("COM10")
