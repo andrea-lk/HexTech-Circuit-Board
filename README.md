@@ -33,7 +33,7 @@ To use the HexTech board with Python, you need to set up the HexTech library. Fo
    cd hextech
 2. Install the required Python packages:
   ```sh
-  pip install pyserial keyboard paho-mqtt
+    pip install pyserial keyboard paho-mqtt
 
 ## Using the HexTech Library
 
