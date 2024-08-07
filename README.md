@@ -52,58 +52,58 @@ To get started with programming the HexTech board, import the `HexTechMusclev1` 
 Connect to HexTech from your computer using MQTT. Here is an example of how to connect to the HexTech board through Python using the `paho-mqtt` library:
 
     ```{python}
-import time
-import paho.mqtt.client as mqtt
-
-USERNAME = "hextech-andrea"
-PASSWORD = "andrea"
-commands = "hextech/hextech-andrea/commands"
-topic = "hextech/hextech-andrea/status"
-
-def on_publish(client, userdata, mid, reason_code, properties):
-    try:
-        userdata.remove(mid)
-        print("Published")
-    except KeyError:
-        print("on_publish() is called with a mid not present in unacked_publish")
-        print("This is due to an unavoidable race-condition:")
-        print("* publish() returns the mid of the message sent.")
-        print("* mid from publish() is added to unacked_publish by the main thread")
-        print("* on_publish() is called by the loop_start thread")
-        print("While unlikely (because on_publish() will be called after a network round-trip),")
-        print(" this is a race-condition that COULD happen")
-        print("")
-        print("The best solution to avoid race-condition is using the msg_info from publish()")
-        print("We could also try using a list of acknowledged mid rather than removing from pending list,")
-        print("but remember that mid could be re-used!")
-
-def on_connect(client, userdata, flags, reason_code, properties):
-    print(f"Connected with result code {reason_code}")
-    client.subscribe(topic)
-
-def on_message(client, userdata, msg):
-    print(f"Received message '{msg.payload.decode()}' on topic '{msg.topic}'")
-
-unacked_publish = set()
-
-mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
-mqttc.on_publish = on_publish
-mqttc.on_connect = on_connect
-mqttc.on_message = on_message
-mqttc.user_data_set(unacked_publish)
-mqttc.username_pw_set(username=USERNAME, password=PASSWORD)
-mqttc.connect("mqtt.hextronics.cloud", 1883)
-mqttc.loop_start()
-
-msg_info = mqttc.publish(commands, "led.bl_off", 0, False)
-unacked_publish.add(msg_info.mid)
-
-while len(unacked_publish):
-    time.sleep(0.1)
-
-msg_info.wait_for_publish()
-mqttc.disconnect()
-mqttc.loop_stop()
+    import time
+    import paho.mqtt.client as mqtt
+    
+    USERNAME = "hextech-andrea"
+    PASSWORD = "andrea"
+    commands = "hextech/hextech-andrea/commands"
+    topic = "hextech/hextech-andrea/status"
+    
+    def on_publish(client, userdata, mid, reason_code, properties):
+        try:
+            userdata.remove(mid)
+            print("Published")
+        except KeyError:
+            print("on_publish() is called with a mid not present in unacked_publish")
+            print("This is due to an unavoidable race-condition:")
+            print("* publish() returns the mid of the message sent.")
+            print("* mid from publish() is added to unacked_publish by the main thread")
+            print("* on_publish() is called by the loop_start thread")
+            print("While unlikely (because on_publish() will be called after a network round-trip),")
+            print(" this is a race-condition that COULD happen")
+            print("")
+            print("The best solution to avoid race-condition is using the msg_info from publish()")
+            print("We could also try using a list of acknowledged mid rather than removing from pending list,")
+            print("but remember that mid could be re-used!")
+    
+    def on_connect(client, userdata, flags, reason_code, properties):
+        print(f"Connected with result code {reason_code}")
+        client.subscribe(topic)
+    
+    def on_message(client, userdata, msg):
+        print(f"Received message '{msg.payload.decode()}' on topic '{msg.topic}'")
+    
+    unacked_publish = set()
+    
+    mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+    mqttc.on_publish = on_publish
+    mqttc.on_connect = on_connect
+    mqttc.on_message = on_message
+    mqttc.user_data_set(unacked_publish)
+    mqttc.username_pw_set(username=USERNAME, password=PASSWORD)
+    mqttc.connect("mqtt.hextronics.cloud", 1883)
+    mqttc.loop_start()
+    
+    msg_info = mqttc.publish(commands, "led.bl_off", 0, False)
+    unacked_publish.add(msg_info.mid)
+    
+    while len(unacked_publish):
+        time.sleep(0.1)
+    
+    msg_info.wait_for_publish()
+    mqttc.disconnect()
+    mqttc.loop_stop()
 
 
 ## Parallel and Sequential Execution
