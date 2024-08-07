@@ -45,8 +45,8 @@ To get started with programming the HexTech board, import the `HexTechMusclev1` 
 ```{python}
 from hextech import HexTechMusclev1
 
-    hex = HexTechMusclev1("COM10")
-    hex.blue_led.turn_on()
+hex = HexTechMusclev1("COM10")
+hex.blue_led.turn_on()
 ```
 
  
@@ -55,7 +55,7 @@ from hextech import HexTechMusclev1
 
 Connect to HexTech from your computer using MQTT. Here is an example of how to connect to the HexTech board through Python using the `paho-mqtt` library:
 
-    ```{python}
+```{python}
     import time
     import paho.mqtt.client as mqtt
     
@@ -108,13 +108,14 @@ Connect to HexTech from your computer using MQTT. Here is an example of how to c
     msg_info.wait_for_publish()
     mqttc.disconnect()
     mqttc.loop_stop()
-
+```
 
 ## Parallel and Sequential Execution
 
 To execute multiple commands at the same time or in sequence, use the `execute_in_parallel` and `execute_in_sequence` methods:
 
-    ```python
+```{python}
+
 from hextech import HexTechMusclev1
 
 hex = HexTechMusclev1("COM5")
@@ -123,7 +124,7 @@ hex.execute_in_parallel([
     hex.blue_led.turn_on(False),
     hex.stepper0.move(2000, False)
 ])
-
+```
 
 ## Programming with HexTech
 
@@ -132,20 +133,20 @@ hex.execute_in_parallel([
 The HexTech board has built-in LEDs that can be controlled using the `LED` class. Here are some basic commands:
 
 * Turn on the blue LED:
-  ```python
+  ```{python}
   hex.blue_led.turn_on()
-  
+  ```
 * Turn off the blue LED:
 
-    ```python
+   ```{python}
     hex.blue_led.turn_off()
-    ```
+ ```
 
 * Flash the blue LED:
 
-    ```python
+ ```{python}
     hex.blue_led.flash()
-    ```
+   ```
 ### Controlling Stepper Motors
 
 The HexTech board can control up to four stepper motors. Here are some basic commands:
