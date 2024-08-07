@@ -45,7 +45,7 @@ To get started with programming the HexTech board, import the `HexTechMusclev1` 
 
     hex = HexTechMusclev1("COM10")
     hex.blue_led.turn_on()
-
+    ```
 
 ## Connecting to MQTT
 
