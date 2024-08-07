@@ -140,11 +140,10 @@ The HexTech board has built-in LEDs that can be controlled using the `LED` class
 
    ```{python}
     hex.blue_led.turn_off()
- ```
+   ```
 
 * Flash the blue LED:
-
- ```{python}
+   ```{python}
     hex.blue_led.flash()
    ```
 ### Controlling Stepper Motors
@@ -152,12 +151,12 @@ The HexTech board has built-in LEDs that can be controlled using the `LED` class
 The HexTech board can control up to four stepper motors. Here are some basic commands:
 
 * Set speed:
-    ```python
+    ```{python}
     hex.stepper0.set_speed(1000)
     ```
 
 * Move the motor:
-    ```python
+    ```{python}
     hex.stepper0.move(200)
     ```
 
